@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const bcrypt = require('bcrypt'); 
+const bcrypt = require("bcryptjs");
 require('dotenv').config(); // Load variables from .env locally
 
 const app = express();
