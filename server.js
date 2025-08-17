@@ -13,7 +13,7 @@ app.use(express.json());
 // ✅ CORS setup (replace with your frontend domain)
 const allowedOrigins = [
   "http://localhost:5173",             // for local testing
-  "https://your-frontend-domain.com", // replace with frontend deployed URL
+  "https://restarant-app-frontend.vercel.app", // replace with frontend deployed URL
 ];
 
 app.use(cors({
