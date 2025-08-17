@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-const mongoURI = process.env.MONGO_URI;  // ✅ consistent env var name
+const mongoURI = process.env.MONGODB_URI;  // ✅ consistent env var name
 
 if (!mongoURI) {
   console.error("❌ MONGODB_URI is not defined in environment variables");
