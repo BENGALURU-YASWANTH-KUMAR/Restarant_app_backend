@@ -8,25 +8,31 @@ const app = express();
 const port = process.env.PORT || 5000; // Use dynamic port on Render
 
 // Middleware
-app.use(cors());
 app.use(express.json());
 
+// ✅ CORS setup (replace with your frontend domain)
+const allowedOrigins = [
+  "http://localhost:5174",             // for local testing
+  "https://your-frontend-domain.com", // replace with frontend deployed URL
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
+
 // Connect to MongoDB
-const mongoURI = process.env.MONGODB_URI;  // ✅ consistent env var name
+const mongoURI = process.env.MONGODB_URI;
 
 if (!mongoURI) {
   console.error("❌ MONGODB_URI is not defined in environment variables");
-  process.exit(1); // Exit if not configured
+  process.exit(1);
 }
 
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log('✅ Connected to MongoDB');
-}).catch((error) => {
-  console.error('❌ Error connecting to MongoDB:', error);
-});
+mongoose.connect(mongoURI)
+  .then(() => console.log('✅ Connected to MongoDB'))
+  .catch((error) => console.error('❌ Error connecting to MongoDB:', error));
 
 // Define a Mongoose Schema with additional fields
 const userSchema = new mongoose.Schema({
@@ -98,6 +104,11 @@ app.post('/contact', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Error saving message' });
   }
+});
+
+// ✅ Root route
+app.get("/", (req, res) => {
+  res.send("Backend is running ✅");
 });
 
 // Start server
