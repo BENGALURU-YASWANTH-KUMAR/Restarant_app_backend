@@ -9,4 +9,6 @@ services:
       - key: NODE_ENV
         value: production
       - key: MONGODB_URI
-        sync: false # set this in Render dashboard with your Atlas DB URI
+        sync: false # set this securely in Render dashboard
+      - key: PORT
+        value: 5000 # ensure server.js uses process.env.PORT
